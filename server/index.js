@@ -34,4 +34,17 @@ app.get("/api/fortune", (req, res) => {
   res.status(200).send(randomFortune);
 });
 
+app.get("/api/quotes", (req, res) => {
+  const quotes = [
+    `I don't walk away from things I think are unfinished. - Arnold Schwarzenegger`,
+    "The mind is everything. What you think you become. - Buddha",
+    `Life shrinks or expands in proportion to one's courage. - Anais Nin`,
+    `It is never too late to be what you might have been. - George Eliot`,
+  ];
+  let randomIndex = Math.floor(Math.random() * quotes.length);
+  let randomQuote = quotes[randomIndex];
+
+  res.status(200).send(randomQuote);
+});
+
 app.listen(4000, () => console.log("Server running on 4000"));
