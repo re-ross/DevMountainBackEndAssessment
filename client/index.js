@@ -4,6 +4,7 @@ const divEl = document.querySelector("div");
 const removeBtn = document.getElementById("removeQuote");
 //
 const getAllBtn = document.querySelector("#all");
+const memberContainer = document.querySelector("section");
 
 fortuneBtn.addEventListener("click", () => {
   axios.get("http://localhost:4000/api/fortune").then(function (response) {
@@ -24,6 +25,24 @@ function clearQuotes() {
   divEl.innerHTML = "";
 }
 removeBtn.addEventListener("click", clearQuotes);
+
+function createMemberCard(char) {
+  let memberCard = document.createElement("div");
+  memberCard.innerHTML = `<h3>${char.firstName} ${char.lastName}</h3>
+  <p>gender: ${char.gender} | age: ${char.age}</p>
+  <h4>Likes</h4>
+  <ul>
+    <li>${char.likes[0]}</li>
+    <li>${char.likes[1]}</li>
+    <li>${char.likes[2]}</li>
+  </ul>`;
+
+  memberContainer.appendChild(memberCard);
+}
+
+function clearMembers() {
+  memberContainer.innerHTML = ``;
+}
 
 function getAllMembers() {
   axios
