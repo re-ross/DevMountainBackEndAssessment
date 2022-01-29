@@ -51,6 +51,9 @@ app.get("/api/quotes", (req, res) => {
 
   res.status(200).send(randomQuote);
 });
+
+//
+
 let members = [
   {
     id: 0,
@@ -93,5 +96,8 @@ let members = [
     likes: ["energy drinks", "coding", "anime"],
   },
 ];
-
+app.get("/api/members", (req, res) => {
+  console.log("hit members");
+  res.status(200).send(members);
+});
 app.listen(4000, () => console.log("Server running on port 4000"));

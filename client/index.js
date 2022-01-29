@@ -2,8 +2,8 @@ const fortuneBtn = document.getElementById("fortuneBtn");
 const quotesBtn = document.getElementById("quotes");
 const divEl = document.querySelector("div");
 const removeBtn = document.getElementById("removeQuote");
-
-const baseURL = "http://localhost:4000/api";
+//
+const getAllBtn = document.querySelector("#all");
 
 fortuneBtn.addEventListener("click", () => {
   axios.get("http://localhost:4000/api/fortune").then(function (response) {
@@ -24,3 +24,14 @@ function clearQuotes() {
   divEl.innerHTML = "";
 }
 removeBtn.addEventListener("click", clearQuotes);
+
+function getAllMembers() {
+  axios
+    .get("http://localhost:4000/api/members")
+    .then((res) => {
+      res.data.forEach((memberObj) => createMemberCard(memberObj));
+    })
+    .catch((err) => console.log(err));
+}
+
+getAllBtn.addEventListener("click", getAllMembers);
