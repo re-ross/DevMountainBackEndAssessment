@@ -1,6 +1,6 @@
 const fortuneBtn = document.getElementById("fortuneBtn");
 const quotesBtn = document.getElementById("quotes");
-const divEl = document.querySelector("div");
+const articleEl = document.querySelector("article");
 const removeBtn = document.getElementById("removeQuote");
 //
 const getAllBtn = document.querySelector("#all");
@@ -25,16 +25,16 @@ quotesBtn.addEventListener("click", () => {
     const h2 = document.createElement("h2");
     const text = document.createTextNode(`${response.data}`);
     h2.appendChild(text);
-    divEl.appendChild(h2);
+    articleEl.appendChild(h2);
   });
 });
 function clearQuotes() {
-  divEl.innerHTML = "";
+  articleEl.innerHTML = "";
 }
 removeBtn.addEventListener("click", clearQuotes);
 
 function createMemberCard(char) {
-  let memberCard = document.createElement("div");
+  let memberCard = document.createElement("article");
   memberCard.innerHTML = `<h3>${char.firstName} ${char.lastName}</h3>
   <p>gender: ${char.gender} | age: ${char.age}</p>
   <h4>Likes</h4>
@@ -92,6 +92,19 @@ const submitMember = (evt) => {
     .then((res) => {
       clearMembers();
       res.data.forEach((memberObj) => createMemberCard(memberObj));
+    })
+    .catch((err) => console.log(err));
+};
+
+const deleteMember = (evt) => {
+  axios
+    .delete(`http://localhost:4000/members/${evt.target.getAttribute("id")}`)
+    .then((res) => {
+      const [removedEl, newMembers] = res.data;
+
+      alert(
+        `Successfully removed ${removedEl.member} with id of ${removedEl.id}`
+      );
     })
     .catch((err) => console.log(err));
 };

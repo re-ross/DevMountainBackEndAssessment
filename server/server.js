@@ -120,4 +120,16 @@ app.post("/member", (req, res) => {
   id++;
 });
 
+app.delete("/member/:id", (req, res) => {
+  const memberId = +req.params.memberId;
+  console.log("memberId");
+
+  const trgtInd = members.findIndex((memberObj) => {
+    return memberObj.id === memberId;
+  });
+  const removedMember = members.splice(trgtInd, 1);
+
+  res.status(200).send([removedMember[0], members]);
+});
+
 app.listen(4000, () => console.log("Server running on port 4000"));
