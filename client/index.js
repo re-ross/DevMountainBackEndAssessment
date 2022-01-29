@@ -5,6 +5,7 @@ const removeBtn = document.getElementById("removeQuote");
 //
 const getAllBtn = document.querySelector("#all");
 const memberContainer = document.querySelector("section");
+const memberBtns = document.querySelectorAll(".member-btns");
 
 fortuneBtn.addEventListener("click", () => {
   axios.get("http://localhost:4000/api/fortune").then(function (response) {
@@ -54,3 +55,17 @@ function getAllMembers() {
 }
 
 getAllBtn.addEventListener("click", getAllMembers);
+
+const getOneMem = (evt) => {
+  axios
+    .get("http:localhost:4000/member/" + evt.target.getAttribute("id"))
+    .then((res) => {
+      clearMembers();
+      createMemberCard(res.data);
+    })
+    .catch((err) => console.log(err));
+};
+
+memberBtns.forEach((btn) => {
+  btn.addEventListener("click", getOneMem);
+});

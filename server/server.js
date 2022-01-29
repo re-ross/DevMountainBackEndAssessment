@@ -100,4 +100,13 @@ app.get("/api/members", (req, res) => {
   console.log("hit members");
   res.status(200).send(members);
 });
+
+app.get("/member/:name", (req, res) => {
+  const { name } = req.params;
+  console.log(name);
+  const index = members.findIndex(
+    (char) => char.firstName.toLowerCase() === name
+  );
+  res.status(200).send(members[index]);
+});
 app.listen(4000, () => console.log("Server running on port 4000"));
