@@ -6,6 +6,12 @@ const removeBtn = document.getElementById("removeQuote");
 const getAllBtn = document.querySelector("#all");
 const memberContainer = document.querySelector("section");
 const memberBtns = document.querySelectorAll(".member-btns");
+const createMemberForm = document.querySelector("#create-form");
+const ageForm = document.querySelector("#age");
+const firstInput = document.querySelector("#first");
+const lastInput = document.querySelector("#last");
+const genderDropdown = document.querySelector("select");
+const likesText = document.querySelector("textarea");
 
 fortuneBtn.addEventListener("click", () => {
   axios.get("http://localhost:4000/api/fortune").then(function (response) {
@@ -69,3 +75,25 @@ const getOneMem = (evt) => {
 memberBtns.forEach((btn) => {
   btn.addEventListener("click", getOneMem);
 });
+
+const submitMember = (evt) => {
+  evt.preventDefault();
+
+  const body = {
+    firstName: firstInput.value,
+    lastName: lastInput.value,
+    gender: genderDropdown.value,
+    age: ageForm.value,
+    likes: likesText.value.split(","),
+  };
+
+  axios
+    .post("http:localhost:4000/member/", body)
+    .then((res) => {
+      clearMembers();
+      res.data.forEach((memberObj) => createMemberCard(memberObj));
+    })
+    .catch((err) => console.log(err));
+};
+
+createMemberForm.addEventListener("submit", submitMember);

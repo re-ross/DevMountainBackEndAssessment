@@ -97,7 +97,7 @@ let members = [
   },
 ];
 app.get("/api/members", (req, res) => {
-  console.log("hit members");
+  console.log("hit members", members);
   res.status(200).send(members);
 });
 
@@ -109,4 +109,15 @@ app.get("/member/:name", (req, res) => {
   );
   res.status(200).send(members[index]);
 });
+
+let id = 5;
+
+app.post("/member", (req, res) => {
+  let newMember = { ...req.body, id };
+  newMember.likes = newMember.likes.slice(0, 3);
+  members.push(newMember);
+  res.status(200).send(members);
+  id++;
+});
+
 app.listen(4000, () => console.log("Server running on port 4000"));
