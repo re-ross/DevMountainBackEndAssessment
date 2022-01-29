@@ -14,6 +14,8 @@ const quotes = [
   `It is never too late to be what you might have been. - George Eliot`,
   `Too many of us are not living our dreams because we are living our fears. - Les Brown`,
   `I didn't fail the test. I just found 100 ways to do it wrong. - Benjamin Franklin`,
+  `The two most important days in your life are the day you are born and the day you find out why. - Mark Twain`,
+  `You miss 100% of the shots you don't take. -Wayne Gretzky - Michael Scott`,
 ];
 
 app.get("/api/compliment", (req, res) => {
@@ -49,39 +51,47 @@ app.get("/api/quotes", (req, res) => {
 
   res.status(200).send(randomQuote);
 });
-
-const mockDb = [
-  "pencil",
-  "pen",
-  "sticker",
-  "dirt",
-  "leaf",
-  "rock",
-  "hippopotamus",
-  "spiders",
-  "mouse",
-  "soccerball",
+let members = [
+  {
+    id: 0,
+    firstName: "Ryan",
+    lastName: "Ross",
+    gender: "male",
+    age: 32,
+    likes: ["Korean Food", "James Bond Movies", "coding"],
+  },
+  {
+    id: 1,
+    firstName: "Eric",
+    lastName: "Sellors",
+    gender: "male",
+    age: 21,
+    likes: ["pizza", "coding", "teaching"],
+  },
+  {
+    id: 2,
+    firstName: "DJ",
+    lastName: "Tiwari",
+    gender: "male",
+    age: 21,
+    likes: ["anime", "coding", "basketball"],
+  },
+  {
+    id: 3,
+    firstName: "Lucas",
+    lastName: "Nogueira",
+    gender: "male",
+    age: 26,
+    likes: ["topochico", "Meatloaf", "sarcasm"],
+  },
+  {
+    id: 4,
+    firstName: "Ben",
+    lastName: "Bertagnole",
+    gender: "male",
+    age: 28,
+    likes: ["energy drinks", "coding", "anime"],
+  },
 ];
 
-app.get("/api/inventory", (req, res) => {
-  const { item } = req.query;
-
-  if (item) {
-    const filteredItems = mockDb.filter((el) => {
-      return el.includes(item);
-    });
-    res.status(200).send(filteredItems);
-  } else {
-    console.log("hit");
-    res.status(200).send(mockDb);
-  }
-});
-
-app.get("/api/inventory/:itemInd", (req, res) => {
-  res.status(200).send(mockDb[+req.params.itemInd]);
-});
-
-app.get("/api/inventory", (req, res) => {});
-
-app.listen(4000, () => console.log("Server running on port 4000"));
 app.listen(4000, () => console.log("Server running on port 4000"));
