@@ -1,7 +1,7 @@
 const fortuneBtn = document.getElementById("fortuneBtn");
 const quotesBtn = document.getElementById("quotes");
 const divEl = document.querySelector("div");
-const removeBtn = document.getElementById("removeQuote");
+const clearBtn = document.getElementById("clearQuote");
 //
 const getAllBtn = document.querySelector("#all");
 const memberContainer = document.getElementById("views");
@@ -50,6 +50,9 @@ function createMemberCard(member = {}) {
     const tempElement = document.createElement("div");
     tempElement.appendChild(createMemberCard(returnedMember));
     updateView(tempElement);
+    let deleteButton = document
+      .createElement("button")
+      .addEventListener("click", dele);
   };
 
   memberCard.innerHTML = `
