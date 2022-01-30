@@ -64,11 +64,6 @@ function createMemberCard(member = {}) {
       <li>${member.likes[2]}</li>
     </ul>
     </button>
-    <br/>
-    <button id="${member.id}-delete-button" value="${
-    member.id
-  }" onclick="${async () => await deleteMember(member.id)}">"byee"</button>
-  </div>
   `;
   memberCard.addEventListener("click", async (e) => {
     e.preventDefault();

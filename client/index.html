@@ -3,28 +3,30 @@
   <head>
     <title>Back End Assessment</title>
   </head>
+  <link rel="stylesheet" href="styles.css" />
   <body class="container">
-    <button id="complimentButton">Get a compliment</button>
-    <script>
-      document.getElementById("complimentButton").onclick = function () {
-        axios
-          .get("http://localhost:4000/api/compliment/")
-          .then(function (response) {
-            const data = response.data;
-            alert(data);
-          });
-      };
-    </script>
-    <button id="fortuneBtn">Get a fortune, no cookie!</button>
-    <button id="quotes">Need inspiration?</button>
-    <button id="removeQuote">Remove inspiration.</button>
+    <header>
+      <button id="complimentButton">Get a compliment</button>
+      <script>
+        document.getElementById("complimentButton").onclick = function () {
+          axios
+            .get("http://localhost:4000/api/compliment/")
+            .then(function (response) {
+              const data = response.data;
+              alert(data);
+            });
+        };
+      </script>
+      <button id="fortuneBtn">Get a fortune, no cookie!</button>
+      <button id="quotes">Need inspiration?</button>
+      <button id="removeQuote">Remove inspiration.</button>
+    </header>
     <div></div>
     <main>
       <h1>F-17</h1>
 
-      <button id="all">Get All Cohort Members</button>
+      <button id="all">Show Cohort Members</button>
 
-      <h2>Add New Cohort Member</h2>
       <form id="create-form">
         <input type="text" id="first" placeholder="First Name" />
         <input type="text" id="last" placeholder="Last Name" />
