@@ -1,7 +1,7 @@
 const fortuneBtn = document.getElementById("fortuneBtn");
 const quotesBtn = document.getElementById("quotes");
 const divEl = document.querySelector("div");
-const clearBtn = document.getElementById("clearQuote");
+const removeBtn = document.getElementById("removeQuote");
 //
 const getAllBtn = document.querySelector("#all");
 const memberContainer = document.getElementById("views");
@@ -12,6 +12,10 @@ const firstInput = document.querySelector("#first");
 const lastInput = document.querySelector("#last");
 const genderDropdown = document.querySelector("select");
 const likesText = document.querySelector("textarea");
+const articleEl = document.querySelectorAll("article");
+const nameEditForm = document.querySelector("#nameEdit");
+const currentName = document.querySelector("#current");
+const newName = document.querySelector("#newName");
 
 fortuneBtn.addEventListener("click", () => {
   axios.get("http://localhost:4000/api/fortune").then(function (response) {
@@ -37,10 +41,6 @@ removeBtn.addEventListener("click", clearQuotes);
 function createMemberCard(member = {}) {
   let memberCard = document.createElement("article");
 
-  function clearMembers() {
-    memberContainer.innerHTML = ``;
-  }
-
   let getMember = async (event) => {
     console.log("LOL");
     event.preventDefault();
@@ -50,9 +50,6 @@ function createMemberCard(member = {}) {
     const tempElement = document.createElement("div");
     tempElement.appendChild(createMemberCard(returnedMember));
     updateView(tempElement);
-    let deleteButton = document
-      .createElement("button")
-      .addEventListener("click", dele);
   };
 
   memberCard.innerHTML = `
@@ -80,6 +77,10 @@ function createMemberCard(member = {}) {
   return memberCard;
 }
 
+function clearMembers() {
+  memberContainer.innerHTML = ``;
+}
+
 // makes HTTP request - returns us an array of members
 async function getAllMembers() {
   const response = await axios
@@ -93,13 +94,16 @@ async function getAllMembers() {
   return response;
 }
 
+// we create one function, it knows little about the outside
+// it clears our view container (memberContainer)
+// and updates it HTML for us.
 function updateView(somethingToRender) {
   memberContainer.innerHTML = "";
   memberContainer.appendChild(somethingToRender);
 }
 
 getAllBtn.addEventListener("click", async () => {
-  const returnedMembers = await getAllMembers();
+  const returnedMembers = await getAllMembers(); // array of member objects from HTTP
   const tempElement = document.createElement("div");
   returnedMembers.forEach((mem) =>
     tempElement.appendChild(createMemberCard(mem))
@@ -116,6 +120,10 @@ const getOneMem = async (idToFetch) => {
     .catch((err) => console.log(err));
   return response;
 };
+
+// memberBtns.forEach((btn) => {
+//   btn.addEventListener("click", getOneMem);
+// });
 
 const submitMember = (evt) => {
   evt.preventDefault();
@@ -151,3 +159,14 @@ const deleteMember = (idToDelete) => {
     })
     .catch((err) => console.log(err));
 };
+const editName = (evt) => {
+  evt.preventDefault();
+  const body = { newname: newName.value, currentname: currentName.value };
+  axios
+    .put("http://localhost:4000/members/id", body)
+    .then((res) => {
+      getAllMembers(res.data);
+    })
+    .catch((err) => console.log(err));
+};
+nameEditForm.addEventListener("submit", editName);

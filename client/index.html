@@ -4,7 +4,7 @@
     <title>Back End Assessment</title>
   </head>
   <body class="container">
-    <!-- <button id="complimentButton">Get a compliment</button>
+    <button id="complimentButton">Get a compliment</button>
     <script>
       document.getElementById("complimentButton").onclick = function () {
         axios
@@ -14,7 +14,7 @@
             alert(data);
           });
       };
-    </script> -->
+    </script>
     <button id="fortuneBtn">Get a fortune, no cookie!</button>
     <button id="quotes">Need inspiration?</button>
     <button id="removeQuote">Remove inspiration.</button>
@@ -23,11 +23,6 @@
       <h1>F-17</h1>
 
       <button id="all">Get All Cohort Members</button>
-      <!-- <button class="member-btns" id="ryan">Get Ryan</button>
-      <button class="member-btns" id="eric">Get Eric</button>
-      <button class="member-btns" id="dj">Get DJ</button>
-      <button class="member-btns" id="lucas">Get Lucas</button>
-      <button class="member-btns" id="ben">Get Ben</button> -->
 
       <h2>Add New Cohort Member</h2>
       <form id="create-form">
@@ -44,6 +39,11 @@
         >
         <textarea id="likes"></textarea>
         <button>Add New Member</button>
+      </form>
+      <form id="nameEdit">
+        <input type="text" id="current" placeholder="Current Name" />
+        <input type="text" id="newName" placeholder="New Name " />
+        <button id="nameChanger">Submit Name Edit</button>
       </form>
     </main>
     <div id="views"></div>
