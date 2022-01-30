@@ -7,6 +7,7 @@ const getAllBtn = document.querySelector("#all");
 const memberContainer = document.querySelector("section");
 const memberBtns = document.querySelectorAll(".member-btns");
 const createMemberForm = document.querySelector("#create-form");
+const memberCard = document.createElement("div");
 const ageForm = document.querySelector("#age");
 const firstInput = document.querySelector("#first");
 const lastInput = document.querySelector("#last");
@@ -34,7 +35,6 @@ function clearQuotes() {
 removeBtn.addEventListener("click", clearQuotes);
 
 function createMemberCard(char) {
-  let memberCard = document.createElement("article");
   memberCard.innerHTML = `<h3>${char.firstName} ${char.lastName}</h3>
   <p>gender: ${char.gender} | age: ${char.age}</p>
   <h4>Likes</h4>
@@ -96,17 +96,20 @@ const submitMember = (evt) => {
     .catch((err) => console.log(err));
 };
 
+createMemberForm.addEventListener("submit", submitMember);
+
 const deleteMember = (evt) => {
   axios
     .delete(`http://localhost:4000/members/${evt.target.getAttribute("id")}`)
     .then((res) => {
-      const [removedEl, newMembers] = res.data;
-
-      alert(
-        `Successfully removed ${removedEl.member} with id of ${removedEl.id}`
-      );
+      // const [removedEl, newMembers] = res.data;
+      // alert(
+      //   `Successfully removed ${removedEl.member} with id of ${removedEl.id}`
+      // );
+      // clearMembers(newMembers);
+      console.log(res.data);
     })
     .catch((err) => console.log(err));
 };
 
-createMemberForm.addEventListener("submit", submitMember);
+memberCard.addEventListener("click", deleteMember);
