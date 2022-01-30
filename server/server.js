@@ -17,6 +17,13 @@ const quotes = [
   `The two most important days in your life are the day you are born and the day you find out why. - Mark Twain`,
   `You miss 100% of the shots you don't take. -Wayne Gretzky - Michael Scott`,
 ];
+const fortunes = [
+  "A lifetime friend shall soon be made.",
+  "A light heart carries you through all the hard times.",
+  "A soft voice may be awfully persuasive.",
+  "Advice, when most needed, is least heeded.",
+  "All the effort you are making will ultimately pay off.",
+];
 
 app.get("/api/compliment", (req, res) => {
   const compliments = [
@@ -32,13 +39,6 @@ app.get("/api/compliment", (req, res) => {
   res.status(200).send(randomCompliment);
 });
 app.get("/api/fortune", (req, res) => {
-  const fortunes = [
-    "A lifetime friend shall soon be made.",
-    "A light heart carries you through all the hard times.",
-    "A soft voice may be awfully persuasive.",
-    "Advice, when most needed, is least heeded.",
-    "All the effort you are making will ultimately pay off.",
-  ];
   let randomIndex = Math.floor(Math.random() * fortunes.length);
   let randomFortune = fortunes[randomIndex];
 
