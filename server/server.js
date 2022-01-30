@@ -4,7 +4,8 @@ const cors = require("cors");
 const app = express();
 
 app.use(cors());
-app.use(express.json());
+
+app.use(express.json()); // When we want to be able to accept JSON.
 
 const quotes = [
   `I don't walk away from things I think are unfinished. - Arnold Schwarzenegger`,
@@ -100,13 +101,12 @@ app.get("/api/members", (req, res) => {
   res.status(200).send(members);
 });
 
-app.get("/member/:name", (req, res) => {
-  const { name } = req.params;
-  console.log(name);
-  const index = members.findIndex(
-    (char) => char.firstName.toLowerCase() === name
-  );
-  res.status(200).send(members[index]);
+app.get("/member/:id", (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+  const result = members.find((mem) => mem.id == id); // finds one object from list.
+  console.log("result from memberId server", result);
+  return res.status(200).send(result); // returns 200 + member object it found;
 });
 
 let id = 5;
@@ -120,15 +120,15 @@ app.post("/member", (req, res) => {
 });
 
 app.delete("/member/:id", (req, res) => {
-  const memberId = +req.params.memberId;
-  console.log("memberId");
+  const memberId = +req.params.id;
+  console.log("id");
 
-  const trgtInd = members.findIndex((memberObj) => {
-    return memberObj.id === memberId;
+  const trgtInd = members.findIndex((member) => {
+    return member.id === memberId;
   });
-  const removedMember = members.splice(trgtInd, 1);
+  members.splice(trgtInd, 1);
 
-  res.status(200).send([removedMember[0], members]);
+  res.status(200).send(JSON.stringify({ success: true }));
 });
 
 app.listen(4000, () => console.log("Server running on port 4000"));
